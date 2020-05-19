@@ -1,0 +1,112 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>Metatrader To Binance</title>
+
+    <meta name="author" content="Gerardo De Rosa">
+    <meta name="keywords" content="De Rosa, Gerardo, MetatraderToBinance">
+    <meta name="description" content="MetatraderToBinance application">
+    <meta name="viewport"
+          content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu"
+          rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="static/style.css">
+    <link type="text/css" rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+    <link rel="shortcut icon" href="Images/logo.png" type="image/png">
+    <link rel="icon" href="Images/logo.png" type="image/png">
+
+
+
+</head>
+
+<body>
+<script src="{{url_for('static', filename='app.js')}}"></script>
+<div id="logo">
+<img src="../static/Images/WHITELOGO.png">
+</div>
+<nav id="myTopnav" class="topnav">
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">MENU
+        &#9776; </a> <a id ="home" href="http:\\127.0.0.1:80">Home</a>
+                <div class="dropdown">
+			<a class="dropbtn" >Binance </a>
+			<div class="dropdown-content" id="myDropdown">
+				<a href="myaccount">CopyTrading</a>
+                <a href="order">Capture Signals</a>
+                <a href="wishes">Open Position</a>
+                <a href="client">Close Position</a>
+                <a href="client">Order History</a>
+
+			</div>
+                    </div>
+                    <a href="#metatrader">Metatrader</a>
+<a id = "login" href="\login">Login/Registrazione</a>
+
+    <script>
+			function myFunction() {
+				var x = document.getElementById("myTopnav");
+				if (x.className == "topnav") {
+					x.className += " responsive";
+				} else {
+					x.className = "topnav";
+				}
+			}
+		</script>
+
+
+</nav>
+
+<div class="paragraph", id="loginn">
+
+                <h2 id="titlog">Register or log in</h2>
+            <h3 id="log-des">Here you can log in or register to the website:</h3>
+
+    <div class="form">
+
+
+    <form id ="register" class="register-form">
+
+      <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <form class="login-form">
+      <input type="text" placeholder="username"/>
+      <input type="password" placeholder="password"/>
+      <button>login</button>
+      <p class="message">Not registered? <a href="#">Create an account</a></p>
+    </form>
+  </div>
+</div>
+
+
+<footer>
+    <div id="contacts">
+        <h2 id="contacts">References</h2>
+        <a href="https://www.binance.com/en"><img alt=""
+                                                                 id="cont" src="../static/Images/binance.com.svg"></a> <a
+            href="https://docs.mql4.com/"><img alt="" id="cont"
+                                                       src="../static/Images/metatrader.png"></a> <a href=" https://www.python.org/"><img
+            alt="" id="cont" src="../static/Images/Python.svg"></a>
+        <a href=" https://gerardoderosa.netlify.app/"><img
+            alt="" id="cont" src="../static/Images/me.png"></a>
+
+    </div>
+
+    <p>Copyright &#169; 2020 by De Rosa Gerardo</p>
+</footer>
+</body>
+
+</html>

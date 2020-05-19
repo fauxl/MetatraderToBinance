@@ -17,16 +17,15 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
 mysql.init_app(app)
 
-conn = mysql.connect()
-cursor =conn.cursor()
-
 @app.route('/getdata')
 def GetPositions():
     try:
         sql = ("SELECT * FROM position")
+        conn = mysql.connect()
+        cursor = conn.cursor()
         cursor.execute(sql)
         res = cursor.fetchall()
-        print(res)
+        cursor.close()
         return jsonify(res)
     except TypeError as e:
         print(e)
@@ -34,33 +33,70 @@ def GetPositions():
 def getOrder():
     Array = []
     sql = ("SELECT * FROM position")
+    conn = mysql.connect()
+    cursor = conn.cursor()
     cursor.execute(sql)
     for row in cursor:
+        print(row)
         ticket = row[0]
         typeop= row[1]
         typeop = 0
         if(str(row[1])=="SELL"):
             typeop= 1
         symbol=row[2]
-        Orderop = row[3]
-        SL = row[4]
-        TP= row[5]
+        Orderop = row[5]
+        SL = row[3]
+        TP= row[4]
         close= row[6]
         stato = row[7]
-        ord = Order(ticket,typeop,symbol,Orderop,SL,TP,close,stato)
+        quantity=row[8]
+        profit = row[9]
+        print(ticket,typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit);
+        ord = Order(ticket,typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit)
         Array.append(ord)
+    cursor.close()
     return Array
+
+def modifyOrder(t):
+    ticket = t.ticket
+    SL = t.SL
+    TP = t.TP
+    close = t.close
+    profit = t.profit
+    quantity = t.quantity
+    stato = t.stato
+    print(str(SL)+ " " +str(TP))
+    try:
+        sql1 = ("UPDATE position SET StopLoss=%s, TakeProfit=%s, CloseOperation=%s, Profit=%s, Quantity=%s, Stato=%s where Ticket=%s")
+        values = (SL, TP, close, profit,quantity, stato, ticket)
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute(sql1, values)
+        conn.commit()
+        cursor.close()
+    except TypeError as e:
+        print(e)
 
 
 @app.route('/home', methods=['GET', 'POST'])
 def addOrder():
+    if getOrder() != []:
+        for i in getOrder():
+            print(i.PrintOrder())
+            for g in GetData.read():
+                if int(i.ticket) == int(g.ticket):
+                    i.stato = "Open"
+                else:
+                    i.stato = "Closed"
+            modifyOrder(i)
+
     for t in GetData.read():
         found = "no"
+        t.stato = "Open"
         if getOrder() !=[]:
             for o in getOrder():
                 if int(t.ticket) == int(o.ticket):
                     found = "yes"
-                    stato = "Open"
         if found == "no":
                 ticket = t.ticket
                 typeop = "BUY"
@@ -71,33 +107,35 @@ def addOrder():
                 SL = t.SL
                 TP= t.TP
                 close= t.close
-                stato = "Open"
-                sql = ("INSERT INTO position VALUES (%s, %s,%s, %s,%s, %s,%s,%s)")
-                values = (ticket, typeop,symbol,SL,TP,Orderop,close,stato)
+                stato = t.stato
+                profit = t.profit
+                quantity = t.quantity
+                #BinanceApi.Object(t)
+                sql = ("INSERT INTO position VALUES (%s, %s,%s, %s,%s, %s,%s,%s,%s,%s)")
+                values = (ticket, typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit)
+                conn = mysql.connect()
+                cursor = conn.cursor()
                 cursor.execute(sql,values)
                 conn.commit()
+                cursor.close()
         if found == "yes":
-                ticket = t.ticket
-                SL = t.SL
-                TP= t.TP
-                close = t.close
-                try:
-                    sql1 = ("UPDATE position SET StopLoss=%s, TakeProfit=%s, CloseOperation=%s, Stato=%s where Ticket=%s")
-                    values = (SL,TP,close,stato,ticket)
-                    cursor.execute(sql1,values)
-                    conn.commit()
-                except TypeError as e:
-                    print(e)
+                modifyOrder(t)
     return render_template("Home.html")
 
-
-
+@app.route('/getbinancedata')
+def getOBinance():
+    ArrayOrder = BinanceApi.GetBinanceOrder()
+    return ArrayOrder
 
 
 @app.route("/")
 def index():
-    BinanceApi.Object()
     return render_template("Home.html")
+
+@app.route("/login")
+def login():
+    return render_template("Login.html")
+
 
     """"
     render_template("index.html",

@@ -34,7 +34,10 @@ def  read():
             SL = result[5]
             TP = result[6]
             close = result[7]
-            order = Order(ticket,typeop,symbol,Orderop,SL,TP,close)
+            stato = "Open"
+            quantity = result[8]
+            profit = result[9]
+            order = Order(ticket,typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit)
             #print(order.PrintOrder())
             OrderArray.append(order)
             #print("Ticket: "+ticket+ " Tipo: " +typeop + " Simbolo: " +symbol+
