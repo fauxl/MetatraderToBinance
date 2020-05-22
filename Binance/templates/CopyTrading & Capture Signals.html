@@ -28,12 +28,13 @@
     <link rel="icon" href="Images/logo.png" type="image/png">
 
 
+
 </head>
 
 <body>
 
 <div id="logo">
-<a  href="http:\\127.0.0.1:80"><img src="../static/Images/WHITELOGO.png"></a>
+<img src="../static/Images/WHITELOGO.png">
 </div>
 <nav id="myTopnav" class="topnav">
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">MENU
@@ -50,7 +51,7 @@
                 <ul class="a">
 				<a href="http:\\127.0.0.1:80\copy"><li>CopyTrading</li></a>
                 <a href="order"><li>Capture Signals</li></a>
-                 <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
+                <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
                <a href="client"><li>Close Position</li></a>
                 <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
                 </ul>
@@ -74,28 +75,34 @@
 </nav>
 
 
-<div class="paragraph", id="about">
-    <h2>About the application</h2>
+<div class="paragraph", id="copy">
+    <h2 id="copytrader">Copy Trader</h2>
+     <h3 id="log-des">To copy your orders, insert here the Binance key to perform the connection to your account :</h3>
 
-    <p>The purpose of this application written in MQL4 and python, is to helpo all the person who wants to use the usefull metatrader Expert-Advisor to
-    trade safely on the Binance Platform. By using the Binance Api all the orders you open in MetaTrader
-    will be opened at the same price, with the same StopLoss and TakeProfit, quantity ecc; That's not all, SL and TP will be modified simultaniosely in MetaTrader and Binance and
-    you will be also be able to be able to clos the transaction in Binance when it is closed in MetaTrader or Viceversa. On this page you wil see which one of your orders are opened in MT and which
-    of them on Binance, You will also be able to check the closed Order and get other usefull info!</p>
+<div class="container">
+  <form id="contact" action="" method="post">
+    <p id="inline"> <label>Key:  <input class="inserto" placeholder="Symbol" type="text" tabindex="1" required autofocus></label></p>
+     <p id="inline"><label>Secrete Key: <input   class="inserto"placeholder="Take Profit" type="email" tabindex="2" required></label></p>
+    </form>
+
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+  </form>
+</div>
 </div>
 
+<div class="paragraph", id="signals">
+    <h2 id="copytrader">Capture Signals</h2>
+     <h3 id="log-des">To open and copy orders from signals of important financial traders, select a signal:</h3>
 
-<div class="paragraph", id="metatrader">
-    <h2>Metatrader</h2>
+<div class="container">
+  <form id="contact" action="" method="post">
+    <p id="inline"> <label>Key:  <input class="inserto" placeholder="Symbol" type="text" tabindex="1" required autofocus></label></p>
+    </form>
+
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+  </form>
 </div>
-
-
-<div class="paragraph", id="binance">
-    <h2>Binance</h2>
-
 </div>
-
-
 
 <footer>
     <div id="contacts">

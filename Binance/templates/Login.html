@@ -22,6 +22,7 @@
     <link type="text/css" rel="stylesheet" href="static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+<script src="https://kit.fontawesome.com/410e5bdac4.js" crossorigin="anonymous"></script>
 
     <link rel="shortcut icon" href="Images/logo.png" type="image/png">
     <link rel="icon" href="Images/logo.png" type="image/png">
@@ -37,20 +38,27 @@
 </div>
 <nav id="myTopnav" class="topnav">
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">MENU
-        &#9776; </a> <a id ="home" href="http:\\127.0.0.1:80">Home</a>
-                <div class="dropdown">
-			<a class="dropbtn" >Binance </a>
-			<div class="dropdown-content" id="myDropdown">
-				<a href="myaccount">CopyTrading</a>
-                <a href="order">Capture Signals</a>
-                <a href="wishes">Open Position</a>
-                <a href="client">Close Position</a>
-                <a href="client">Order History</a>
+        &#9776; </a>
+    <i class="fas fa-home"></i>
 
-			</div>
-                    </div>
-                    <a href="#metatrader">Metatrader</a>
-<a id = "login" href="\login">Login/Registrazione</a>
+    <span><a id ="home" href="http:\\127.0.0.1:80">Home</a></span>
+                                   <span><i class="fas fa-coins"></i>
+			<a href="#metatrader" id="binmen">Binance</a>
+                </span>
+<span> <i class="fas fa-chart-line"></i>
+    <div class="dropdown">
+                    	<a class="dropbtn"  id="menmet">Metatrader </a><div class="dropdown-content" id="myDropdown">
+                <ul class="a">
+				<a href="http:\\127.0.0.1:80\copy"><li>CopyTrading</li></a>
+                <a href="order"><li>Capture Signals</li></a>
+                <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
+               <a href="client"><li>Close Position</li></a>
+                <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
+                </ul>
+
+    </div></div></span>
+           <span><i class="far fa-user-circle"></i>
+               <a id = "login" href="\login">Login/Registrazione</a></span>
 
     <script>
 			function myFunction() {
@@ -71,6 +79,7 @@
                 <h2 id="titlog">Register or log in</h2>
             <h3 id="log-des">Here you can log in or register to the website:</h3>
 
+
     <div class="form">
 
 
@@ -83,7 +92,7 @@
       <p class="message">Already registered? <a href="#">Sign In</a></p>
     </form>
     <form class="login-form">
-      <input type="text" placeholder="username"/>
+           <input type="text" placeholder="username"/>
       <input type="password" placeholder="password"/>
       <button>login</button>
       <p class="message">Not registered? <a href="#">Create an account</a></p>
@@ -101,12 +110,13 @@
                                                        src="../static/Images/metatrader.png"></a> <a href=" https://www.python.org/"><img
             alt="" id="cont" src="../static/Images/Python.svg"></a>
         <a href=" https://gerardoderosa.netlify.app/"><img
-            alt="" id="cont" src="../static/Images/me.png"></a>
+            alt="" id="hydron" src="../static/Images/hydron-logo.png"></a>
 
     </div>
 
     <p>Copyright &#169; 2020 by De Rosa Gerardo</p>
 </footer>
 </body>
+ <script src="{{url_for('static', filename='app.js')}}"></script>
 
 </html>

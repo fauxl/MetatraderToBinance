@@ -77,9 +77,14 @@ def modifyOrder(t):
     except TypeError as e:
         print(e)
 
+def RetrieveInfo():
+    
+
+
 
 @app.route('/home', methods=['GET', 'POST'])
 def addOrder():
+    RetrieveInfo();
     if getOrder() != []:
         for i in getOrder():
             print(i.PrintOrder())
@@ -136,6 +141,17 @@ def index():
 def login():
     return render_template("Login.html")
 
+@app.route("/history")
+def history():
+    return render_template("OrderHistory.html")
+
+@app.route("/insert")
+def insert():
+    return render_template("NewOrder.html")
+
+@app.route("/copy")
+def copy():
+    return render_template("CopyTrading & Capture Signals.html")
 
     """"
     render_template("index.html",
