@@ -1,5 +1,5 @@
 import  flask
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, session, request
 from pymysql.constants.FIELD_TYPE import JSON
 
 import GetData
@@ -78,7 +78,7 @@ def modifyOrder(t):
         print(e)
 
 def RetrieveInfo():
-    
+    return "lol"
 
 
 
@@ -145,8 +145,11 @@ def login():
 def history():
     return render_template("OrderHistory.html")
 
-@app.route("/insert")
+@app.route("/insert", methods=['GET', 'POST'])
 def insert():
+    if request.method == 'POST':
+        asd = request.json
+        print(asd)
     return render_template("NewOrder.html")
 
 @app.route("/copy")

@@ -79,13 +79,12 @@
     <h2>Insert a new order</h2>
 
 <div class="container">
-  <form id="contact" action="" method="post">
-    <p id="inline"> <label>Symbol:  <input class="inserto" placeholder="Symbol" type="text" tabindex="1" required autofocus></label></p>
-     <p id="inline"><label>Take Profit: <input   class="inserto"placeholder="Take Profit" type="email" tabindex="2" required></label></p>
-      <p id="inline"><label>Stop Loss:<input   class="inserto" placeholder="Stop Loss" type="tel" tabindex="3" required></label></p>
-    <p id="inline">  <label>Volume:  <input class="inserto" placeholder="Volume" type="url" tabindex="4" required></label></p>
-    <p id="inline"> <label>Tipo:  <input  class="inserto" placeholder="Tipo" type="url" tabindex="5" required></label></p> </form>
-
+  <form id="contact" action=""  data-ajax="false" data-transition="pop" data-direction="reverse" method="post">
+    <p id="inline"> <label>Symbol:  <input name="symbol" class="inserto" placeholder="Symbol" type="text" tabindex="1" required autofocus></label></p>
+     <p id="inline"><label>Take Profit: <input name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required></label></p>
+      <p id="inline"><label>Stop Loss:<input  name="sl" class="inserto" placeholder="Stop Loss" type="text" tabindex="3" required></label></p>
+    <p id="inline">  <label>Volume:  <input name="volume" class="inserto" placeholder="Volume" type="text" tabindex="4" required></label></p>
+    <p id="inline"> <label>Tipo:  <input name="tipo" class="inserto" placeholder="Tipo" type="text" tabindex="5" required></label></p> </form>
 
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
   </form>
@@ -111,6 +110,8 @@
     <p>Copyright &#169; 2020 by De Rosa Gerardo</p>
 </footer>
  <script src="{{url_for('static', filename='app.js')}}"></script>
+ <script src="{{url_for('static', filename='newOrder.js')}}"></script>
+
 </body>
 
 </html>
