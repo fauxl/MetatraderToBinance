@@ -1,9 +1,16 @@
 import fileinput as file
 import array as arr
+import  numpy
+import  flask
+from flask import Flask, jsonify, render_template, session, request
+from pymysql.constants.FIELD_TYPE import JSON
+import json
+
 from Order import Order
+from Ticket import  Ticket
+from Ticket import TicketEncoder
 
 def  read():
-    count = 0
     separator =";"
     f = open("C:/Users/FauxL/AppData/Roaming/MetaQuotes/Terminal/2E8DC23981084565FA3E19C061F586B2/MQL4/Files/Register.csv","r")
     #text = f.readline()
@@ -11,7 +18,6 @@ def  read():
     #print(result)
     n = f.readlines()
 
-    count = sum(1 for _ in f)
     OrderArray = []
 
     for i in n:
@@ -44,3 +50,21 @@ def  read():
            # " PrezzoApertura: " + Orderopen + " PrezzoChiusura: " +close + " SL: "+SL+ " TP: "+TP)
             #print(order.PrintOrder())
     return OrderArray
+
+def readInfo():
+    count = 0
+    separator = ";"
+    f = open(
+        "C:/Users/FauxL/AppData/Roaming/MetaQuotes/Terminal/2E8DC23981084565FA3E19C061F586B2/MQL4/Files/MarketInfo.csv","r")
+
+    n = f.readlines()
+
+    SymbolArray = []
+
+    for i in n:
+        result = i.split(separator)
+        symbol = result[1]
+        price = result[2]
+        ticket = Ticket(symbol, price)
+        SymbolArray.append(TicketEncoder().encode(ticket))
+    return json.dumps(SymbolArray)

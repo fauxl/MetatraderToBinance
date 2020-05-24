@@ -80,6 +80,11 @@ def modifyOrder(t):
 def RetrieveInfo():
     return "lol"
 
+def WriteOrder(asd):
+    f = open("C:/Users/FauxL/AppData/Roaming/MetaQuotes/Terminal/2E8DC23981084565FA3E19C061F586B2/MQL4/Files/WriteOrder.csv","w")
+    f.write(asd["simbolo"] +";"+ asd["volume"] +";"+asd["tipo"] +";"+ asd["SL"] +";"+asd["TP"])
+    f.close()
+
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -147,9 +152,10 @@ def history():
 
 @app.route("/insert", methods=['GET', 'POST'])
 def insert():
+    print(GetData.readInfo())
     if request.method == 'POST':
         asd = request.json
-        print(asd)
+        WriteOrder(asd)
     return render_template("NewOrder.html")
 
 @app.route("/copy")
