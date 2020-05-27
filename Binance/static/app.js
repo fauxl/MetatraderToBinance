@@ -62,17 +62,59 @@ function myFunction() {
   }
 }
 
+$(document).ready( function() {
+var x = document.cookie;
+var nav = document.getElementById("login");
+var div = document.getElementById("drop");
+var drop = document.getElementById("myDropdownn");
 
+console.log(drop);
+
+if (!x.substr("UserID")){
+    nav.innerHTML= "Login/Registrazione";
+    nav.setAttribute('href', "http://127.0.0.1/login");
+   drop.style.visibility="hidden";
+    nav.style.padding="2% 10% 2% 0% ";
+    div.style.padding="2% 9% 2% 0% ";
+    }
+else{
+   var cookievalue = x.replace("userID="," ");
+   nav.innerHTML= cookievalue;
+   drop.style.visibility="visible";
+   nav.setAttribute('href', "http://127.0.0.1");
+   nav.style.padding="2% 80% 2% 0%";
+}
+
+});
 
 function change(){
    $('form').animate({height: "toggle", opacity: "toggle"}, "slow"
 );}
 
-function gtfocus(){
-$('.paragraph').focus();}
 
 $('.message a').click(function(){
 change();
-gtfocus();
 })
 
+
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("myTopnav").style.top = "-1px";
+    document.getElementById("myTopnav").style.background = "#272e38";
+        document.getElementById("myDropdownn").style.background = "#272e38";
+        document.getElementById("myDropdown").style.background = "#272e38";
+
+
+  } else {
+    document.getElementById("myTopnav").style.top = "-110px";
+  }
+  if ( window.pageYOffset == 0) {
+      document.getElementById("myTopnav").style.background = "transparent";
+      document.getElementById("myDropdownn").style.background = "transparent";
+        document.getElementById("myDropdown").style.background = "transparent";
+
+  }
+  prevScrollpos = currentScrollPos;
+}

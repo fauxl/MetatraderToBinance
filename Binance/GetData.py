@@ -1,10 +1,10 @@
 import fileinput as file
 import array as arr
-import  numpy
 import  flask
 from flask import Flask, jsonify, render_template, session, request
 from pymysql.constants.FIELD_TYPE import JSON
 import json
+from json import  JSONEncoder
 
 from Order import Order
 from Ticket import  Ticket
@@ -66,5 +66,5 @@ def readInfo():
         symbol = result[1]
         price = result[2]
         ticket = Ticket(symbol, price)
-        SymbolArray.append(TicketEncoder().encode(ticket))
-    return json.dumps(SymbolArray)
+        SymbolArray.append(ticket.__dict__)
+    return SymbolArray

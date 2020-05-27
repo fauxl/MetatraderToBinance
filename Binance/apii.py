@@ -1,11 +1,18 @@
 import  flask
 from flask import Flask, jsonify, render_template, session, request
 from pymysql.constants.FIELD_TYPE import JSON
+from flask_login import LoginManager
+from flask import make_response, flash, session, redirect
+from datetime import timedelta
 
 import GetData
 import BinanceApi
 from flaskext.mysql import MySQL
 from Order import Order
+from Users import Users
+
+login_manager = LoginManager()
+login_manager.login_view = '/login'
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -17,6 +24,62 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
 mysql.init_app(app)
 
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    resp = make_response(render_template("login.html"))
+    if request.method == 'POST':
+        asd = request.json
+        max_age = timedelta(minutes=30)
+        for i in LoginForm():
+            if str(i.user) == str(asd["username"]) and str(i.password) == str(asd["password"]):
+                print(i.PrintUser())
+                resp = make_response(redirect('/'))
+                resp.set_cookie('userID', i.user)
+                return resp
+    return resp
+
+def LoginForm():
+    ArrayUser=[]
+    try:
+        sql = ("SELECT * FROM users")
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        for row in cursor:
+            user = row[0]
+            password = row[1]
+            email = row[2]
+            user = Users(user, password, email)
+            ArrayUser.append(user)
+        cursor.close()
+        return ArrayUser
+    except TypeError as e:
+        print(e)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        asd = request.json
+        sql = ("INSERT INTO users VALUES (%s, %s,%s)")
+        values = (asd["username"], asd["password"],asd["email"])
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute(sql, values)
+        conn.commit()
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    #session['logged_in'] = False
+    resp = make_response(render_template('home.html'))
+    resp.set_cookie('userID', expires=0)
+    return resp
+
+
+
 @app.route('/getdata')
 def GetPositions():
     try:
@@ -27,6 +90,7 @@ def GetPositions():
         res = cursor.fetchall()
         cursor.close()
         return jsonify(res)
+        print(jsonify(res))
     except TypeError as e:
         print(e)
 
@@ -37,7 +101,6 @@ def getOrder():
     cursor = conn.cursor()
     cursor.execute(sql)
     for row in cursor:
-        print(row)
         ticket = row[0]
         typeop= row[1]
         typeop = 0
@@ -51,7 +114,6 @@ def getOrder():
         stato = row[7]
         quantity=row[8]
         profit = row[9]
-        print(ticket,typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit);
         ord = Order(ticket,typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit)
         Array.append(ord)
     cursor.close()
@@ -89,10 +151,8 @@ def WriteOrder(asd):
 
 @app.route('/home', methods=['GET', 'POST'])
 def addOrder():
-    RetrieveInfo();
     if getOrder() != []:
         for i in getOrder():
-            print(i.PrintOrder())
             for g in GetData.read():
                 if int(i.ticket) == int(g.ticket):
                     i.stato = "Open"
@@ -142,25 +202,35 @@ def getOBinance():
 def index():
     return render_template("Home.html")
 
-@app.route("/login")
-def login():
-    return render_template("Login.html")
 
 @app.route("/history")
 def history():
     return render_template("OrderHistory.html")
 
+#@login_required
 @app.route("/insert", methods=['GET', 'POST'])
 def insert():
+
     print(GetData.readInfo())
     if request.method == 'POST':
         asd = request.json
         WriteOrder(asd)
     return render_template("NewOrder.html")
 
+
+
+@app.route("/getTicket", methods=['GET'])
+def getTick():
+    return jsonify(GetData.readInfo())
+
+
 @app.route("/copy")
 def copy():
     return render_template("CopyTrading & Capture Signals.html")
+
+@app.route("/segnals")
+def segnals():
+    return render_template("Capture Signals.html")
 
     """"
     render_template("index.html",

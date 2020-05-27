@@ -31,11 +31,8 @@
 </head>
 
 <body>
-
-<div id="logo">
-<a  href="http:\\127.0.0.1:80"><img src="../static/Images/WHITELOGO.png"></a>
-</div>
-<nav id="myTopnav" class="topnav">
+<div id="background">
+    <nav id="myTopnav" class="topnav">
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">MENU
         &#9776; </a>
     <i class="fas fa-home"></i>
@@ -48,16 +45,25 @@
     <div class="dropdown">
                     	<a class="dropbtn"  id="menmet">Metatrader </a><div class="dropdown-content" id="myDropdown">
                 <ul class="a">
-				<a href="http:\\127.0.0.1:80\copy"><li>CopyTrading</li></a>
-                <a href="order"><li>Capture Signals</li></a>
+				<a href="http:\\127.0.0.1:80\copy"><li>Copy Trader To Binance</li></a>
+                <a href="http:\\127.0.0.1:80\segnals"><li>Capture Metatrader Signals</li></a>
                  <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
                <a href="client"><li>Close Position</li></a>
                 <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
                 </ul>
 
     </div></div></span>
+
            <span><i class="far fa-user-circle"></i>
-               <a id = "login" href="\login">Login/Registrazione</a></span>
+<div id="drop" class="dropdownlog">
+                     <a class="droplog" id = "login" href="\login">Login/Registrazione</a>
+
+    <div class="dropdown-content" id="myDropdownn">
+                <ul class="a">
+				<a href="http:\\127.0.0.1:80\copy"><li>Show your data</li></a>
+                    <a href="http:\\127.0.0.1:80\logout"><li>Click to Logout</li></a></ul></div></div>
+           </span>
+
 
     <script>
 			function myFunction() {
@@ -73,9 +79,13 @@
 
 </nav>
 
+<div id="logon">
+<a  href="http:\\127.0.0.1:80\home"><img src="../static/Images/WHITELOGO.png"></a>
+</div>
+</div>
+
 
 <div class="paragraph", id="about">
-    <h2>About the application</h2>
 
     <p>The purpose of this application written in MQL4 and python, is to helpo all the person who wants to use the usefull metatrader Expert-Advisor to
     trade safely on the Binance Platform. By using the Binance Api all the orders you open in MetaTrader
@@ -105,12 +115,12 @@
             href="https://docs.mql4.com/"><img alt="" id="cont"
                                                        src="../static/Images/metatrader.png"></a> <a href=" https://www.python.org/"><img
             alt="" id="cont" src="../static/Images/Python.svg"></a>
-        <a href=" https://gerardoderosa.netlify.app/"><img
-            alt="" id="cont" src="../static/Images/hydron-logo.png"></a>
+        <a href=" "><img
+            alt="" id="hydron" src="../static/Images/hydron-logo.png"></a>
 
     </div>
 
-    <p>Copyright &#169; 2020 by De Rosa Gerardo</p>
+    <p>Copyright &#169; 2020 by Hydron</p>
 </footer>
  <script src="{{url_for('static', filename='app.js')}}"></script>
  <script src="{{url_for('static', filename='table.js')}}"></script>

@@ -12,7 +12,7 @@ class Ticket:
         self.symbol = symbol
         self.price = price
 
-    def PrintOrder(self):
+    def PrintTicket(self):
         print("Simbolo: "+self.symbol+ " Price: " +str(self.typeop))
 
 

@@ -1,4 +1,4 @@
-import order as order
+import Order as order
 from binance.client import Client
 from binance.enums import *
 

@@ -33,10 +33,8 @@
 
 <body>
 <script src="{{url_for('static', filename='app.js')}}"></script>
-<div id="logo">
-<img src="../static/Images/WHITELOGO.png">
-</div>
-<nav id="myTopnav" class="topnav">
+<div id="backgroundpages">
+    <nav id="myTopnav" class="topnav">
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">MENU
         &#9776; </a>
     <i class="fas fa-home"></i>
@@ -49,16 +47,25 @@
     <div class="dropdown">
                     	<a class="dropbtn"  id="menmet">Metatrader </a><div class="dropdown-content" id="myDropdown">
                 <ul class="a">
-				<a href="http:\\127.0.0.1:80\copy"><li>CopyTrading</li></a>
-                <a href="order"><li>Capture Signals</li></a>
-                <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
+				<a href="http:\\127.0.0.1:80\copy"><li>Copy Trader To Binance</li></a>
+                <a href="http:\\127.0.0.1:80\segnals"><li>Capture Metatrader Signals</li></a>
+                 <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
                <a href="client"><li>Close Position</li></a>
                 <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
                 </ul>
 
     </div></div></span>
+
            <span><i class="far fa-user-circle"></i>
-               <a id = "login" href="\login">Login/Registrazione</a></span>
+<div id="drop" class="dropdownlog">
+                     <a class="droplog" id = "login" href="\login">Login/Registrazione</a>
+
+    <div class="dropdown-content" id="myDropdownn">
+                <ul class="a">
+				<a href="http:\\127.0.0.1:80\copy"><li>Show your data</li></a>
+                    <a href="http:\\127.0.0.1:80\logout"><li>Click to Logout</li></a></ul></div></div>
+           </span>
+
 
     <script>
 			function myFunction() {
@@ -74,28 +81,32 @@
 
 </nav>
 
+<div id="logopages">
+<a  href="http:\\127.0.0.1:80\home"><img src="../static/Images/WHITELOGO.png"></a>
+    <h1>Log In or Register</h1>
+</div>
+</div>
+
+
 <div class="paragraph", id="loginn">
 
-                <h2 id="titlog">Register or log in</h2>
-            <h3 id="log-des">Here you can log in or register to the website:</h3>
 
-
-    <div class="form">
+    <div class="form" id=""here>
 
 
     <form id ="register" class="register-form">
 
-      <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
+      <input id="name" type="text" placeholder="name"/>
+      <input id="password" type="password" placeholder="password"/>
+      <input id="email" type="text" placeholder="email address"/>
+      <button id="reg">create</button>
+      <p class="message">Already registered? <a href="#here">Sign In</a></p>
     </form>
-    <form class="login-form">
-           <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
-      <button>login</button>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
+    <form id="enter" class="login-form">
+           <input id="username" type="text" required placeholder="username"/>
+      <input id="pass" type="password" required placeholder="password"/>
+      <button id="log">login</button>
+      <p class="message">Not registered? <a href="#here">Create an account</a></p>
     </form>
   </div>
 </div>
@@ -109,14 +120,16 @@
             href="https://docs.mql4.com/"><img alt="" id="cont"
                                                        src="../static/Images/metatrader.png"></a> <a href=" https://www.python.org/"><img
             alt="" id="cont" src="../static/Images/Python.svg"></a>
-        <a href=" https://gerardoderosa.netlify.app/"><img
+        <a href=" "><img
             alt="" id="hydron" src="../static/Images/hydron-logo.png"></a>
 
     </div>
 
-    <p>Copyright &#169; 2020 by De Rosa Gerardo</p>
+    <p>Copyright &#169; 2020 by Hydron</p>
 </footer>
 </body>
  <script src="{{url_for('static', filename='app.js')}}"></script>
+ <script src="{{url_for('static', filename='login.js')}}"></script>
+
 
 </html>

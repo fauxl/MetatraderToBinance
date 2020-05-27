@@ -23,6 +23,6 @@ class Order:
 
     def PrintOrder(self):
         print("Ticket: "+str(self.ticket)+ " Tipo: " +str(self.typeop)+ " Simbolo: " +self.symbol+
-         " PrezzoApertura: " + str(self.Orderop) + " PrezzoChiusura: " +str(self.close) + " SL: "+str(self.SL)+ " TP: "+str(self.TP) + "Stato: " +self.stato
+         " PrezzoApertura: " + str(self.Orderop) + " PrezzoChiusura: " +str(self.close) + " SL: "+str(self.SL)+ " TP: "+str(self.TP) + "Stato: " +str(self.stato)
        + "Quantità: " + str(self.quantity) +" Profitto: "+str(self.profit))
 

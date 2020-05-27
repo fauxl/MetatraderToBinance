@@ -1,4 +1,9 @@
-html {
+html, body{
+	height:100%;
+}
+
+
+ìhtml {
     background-color: black;
     font-size: large;
 }
@@ -20,8 +25,9 @@ body {
 	display: none;
 }
 table, td, th {
-  border: 1px solid #44856c;
+  border: 3px solid #ffffff;
   text-align: left;
+  text-align:center;
 }
 
 table {
@@ -43,7 +49,7 @@ td:nth-child(4) {
     font-weight:bold;
 }
 
-td:nth-child(10) {
+td:nth-child(9) {
 color: #fd0404;
 
   animation: glow 0.7s ease-in-out infinite alternate;}
@@ -55,21 +61,76 @@ th {
 table {
     margin-top: 2%;
 }
-div#title {
-	 display: inline-block;
+div#logon img{
       vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    -webkit-transition-duration: 0.5s;
-    transition-duration: 0.5s;
+      -webkit-transform: perspective(1px) translateZ(0);
+      position: absolute;
+      left: 26%;
+      top: 34%;
+      width: 45%;
+      /* left: 0; */
+      /* position: absolute; */
+      /* margin-left: auto; */
+      margin-right: auto;
+      /* top: 50%; */
+      text-align: center;
+      transform: perspective(1px) translateZ(0);
+      -webkit-transition-duration: 0.5s;
+      transition-duration: 0.5s;
 }
 
-div#title:hover {
+div#logopages img{
+      vertical-align: middle;
+      -webkit-transform: perspective(1px) translateZ(0);
+      position: absolute;
+      left: 35%;
+      top: 23%;
+      width: 30%;
+      /* left: 0; */
+      /* position: absolute; */
+      /* margin-left: auto; */
+      margin-right: auto;
+      /* top: 50%; */
+      text-align: center;
+      transform: perspective(1px) translateZ(0);
+      -webkit-transition-duration: 0.5s;
+      transition-duration: 0.5s;
+}
+
+
+div#background {
+    background: linear-gradient(#0000008f,rgba(26, 26, 26, 0.7)), url(../static/Images/financial.jpg) !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+div#backgroundpages {
+    background: linear-gradient(#0000008f,rgba(26, 26, 26, 0.7)), url(../static/Images/pages.jpeg) !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 80%;
+}
+
+div#logon img:hover {
     -webkit-transform: scale(1.2);
     transform: scale(1.2);
     -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
     transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
 }
+
+div#logopages img:hover {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+}
+
+
 header {
 	color: #12ba7c;
 	background-size: 100%;
@@ -90,6 +151,7 @@ header {
 	 background-color: white;
 	 padding-left: 10%;
 	 padding-right: 10%;
+	 /* line-height: 21px; */
 	 padding-bottom: 4%;
 	 margin-left: 7%;
 	 margin-right: 7%;
@@ -102,12 +164,15 @@ header {
 		padding-bottom:4%;
 
 }
-p {
-    font-size: large;
-    /* display: table-row; */
-}
+
 #about {
-    padding-top: 7%;
+    padding-top: 5%;
+}
+
+#about p {
+    font-size: larger;
+    font-weight: 500;
+    line-height: 40px;
 }
 nav {
 	/* padding-top: 2%; */
@@ -115,8 +180,8 @@ nav {
 	/* padding-bottom: 2%; */
 	font-size: 110%;
 	overflow: hidden;
-	/* position: fixed; */
-	background-color: #272e38;
+	position: fixed;
+	background-color: transparent;
 	width: 100%;
 	z-index:200;
 }
@@ -135,19 +200,33 @@ nav {
   font-family: inherit;
   margin: 0;
 }
+div#myDropdownn {
+    margin-left: -3%;
+}
 
-.navbar a:hover .dropbtn {
-  background-color: red;
+.dropdownlog{
+	float:right;
+	padding: 2% 14% 2% 0%;
+	/* padding-left: 1%; */
+}
+.drolog {
+  border: none;
+  /* margin-left: -2%; */
+  outline: none;
+  color: white;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
 }
 
 .dropdown-content {
 	display:none;
-	position: absolute;
-	background-color: #272e38d4;
-	min-width: 160px;
+	position: fixed;
+	background-color: transparent;
+	/* min-width: 140px; */
 	z-index: 1;
-	width: 15%;
-	margin-left:-2%;
+	width: 13%;
+	margin-left: -1%;
 	margin-top: 3%;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
@@ -158,7 +237,7 @@ nav {
 	color: white;
 	padding: 5%;
 	padding-left: 0;
-	/* width: 120%; */
+	width: 120%;
 	text-decoration: none;
 	display: block;
 	text-align: left;
@@ -175,6 +254,9 @@ nav {
 
 
 .dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdownlog:hover .dropdown-content {
   display: block;
 }
 
@@ -322,9 +404,11 @@ color:red;
 
 
 h1 {
-	font-size: 330%;
+	/* font-size: 330%; */
 	margin: 0;
-	margin-bottom: 1%;
+	padding-top: 25%;
+	color: #a6c5b9;
+	/* margin-bottom: 3%; */
 	text-align: center;
 	text-decoration: none;
 }
@@ -343,12 +427,12 @@ h3#log-des {
     margin: 0;
     text-align: center;
     padding-bottom: 1%;
-    color: #3d7660ad;
+    color: #2f3640;
 }
 div#loginn {
     background-color: white;
     padding-bottom: 4%;
-    padding-top: 6.5%;
+    padding-top: 4%;
 }
 .breadcrumb {
 	padding: 0px;
@@ -466,15 +550,20 @@ ul.breadcrumb li {
 
 
 div#logo {
-    /* padding-bottom: 1%; */
+    padding-bottom: 1%;
+    vertical-align:;
+    margin: auto;
+    width: 100%;
+    text-align:center;
+    /* height: 100%; */
     background: #89b9a7;
 }
 
 
 #logo img {
     padding: 4%;
-    margin-left: auto;
-    margin-right: auto;
+    margin:auto;
+     vertical-align:center;
     width: 35%;
     display: block;
     /* vertical-align: inherit; */
@@ -487,7 +576,7 @@ div#logo {
 }
 
 .sticky + .paragraph {
-  padding-top: 12% !important;
+  /*padding-top: 10.5% !important;*/
 }
 
 
@@ -496,10 +585,11 @@ i.far.fa-user-circle {
     /* float: right; */
     /* margin-right: -4%; */
     float: left;
+    /* padding-top: 6%; */
     font-size: 130%;
-    margin-left: 45%;
+    margin-left: 43%;
     color: white;
-    padding-top: 1.95%;
+    padding-top: 2.05%;
 }
 
 i.fas.fa-coins {
@@ -524,7 +614,7 @@ i.fas.fa-chart-line {
 
 i.fas.fa-home {
     display: inline;
-    padding-left: 7%;
+    padding-left: 10%;
     float: left;
     font-size: 130%;
     margin-right: -1%;
@@ -568,7 +658,7 @@ img#hydron:hover {
  /* margin-left: -1%; */
  display: inline-block;
  vertical-align: middle;
- border-style:ridge;
+ border-style: solid 1px;
  border-color:black
  border-width:3px;
  position: relative;
@@ -614,11 +704,10 @@ form#contact {
 
 button#contact-submit {
     /* margin-top: -14%; */
-    padding: 3%;
-    float: right;
+    padding: 2% 1% 2% 1%;
     clear: b;
     /* box-shadow: 1px 1px 1px 2px #44856c; */
-    width: 100%;
+    width: 50%;
     display: inline-block;
     vertical-align: middle;
     -webkit-transform: perspective(1px) translateZ(0);
@@ -628,8 +717,8 @@ button#contact-submit {
     background: #e1e1e1;
     -webkit-transition-property: color;
     transition-property: color;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     background: white;
 }
 
@@ -670,10 +759,12 @@ button#contact-submit:hover, .button#contact-submit:focus, button#contact-submit
 button#contact-submit:hover:before, button#contact-submit:focus:before, button#contact-submit:active:before {
   -webkit-transform: scale(1);
   transform: scale(1);
-}button#contact-submit {
-    margin-top: 4%;
-    font-size: large;
-}p#inline {
+}
+button#contact-submit {
+    margin-top: 7%;
+    font-size: medium;
+}
+p#inline {
     display: table-row;
 }
 h2 div#copy {
@@ -683,4 +774,13 @@ h2 div#copy {
 h2#copytrader {
     padding-bottom: 3%;
 }
-div#signals {text-align: center;}
+div#signals {padding-top: 4%;/* text-align: center; */text-align: center;}
+
+select#symbol {
+    float: right;
+    width: 62.5%;
+}
+
+div#tables {
+    padding-top: 5%;
+}

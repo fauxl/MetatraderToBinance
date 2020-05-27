@@ -29,14 +29,20 @@ function getdata(){
             heading[4] = "Take Profit"
             heading[5] = "Order Opening"
             heading[6] = "Price at the moment"
-            heading[7] = "Stato"
-            heading[8] = "Quantity"
-            heading[9] = "Profit"
+            heading[7] = "Quantity"
+            heading[8] = "Profit"
+            console.log(data)
 
+          var j=0;
             for (var i = 0; i < data.length; i++){
+            var p = data[i][7];
 
+                if(p.localeCompare('Open')==0){
+                      stock[j]= new Array(data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][8],data[i][9]);
+                            j++;
+                }
 
-          stock[i]= new Array(data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9])
+                console.log(stock.length)
 
            } //TABLE COLUMNS
             var tr = document.createElement('TR');
@@ -102,14 +108,19 @@ function getBinancedata(){
             heading[4] = "Take Profit"
             heading[5] = "Order Opening"
             heading[6] = "Price at the moment"
-            heading[7] = "Stato"
-            heading[8] = "Quantity"
-            heading[9] = "Profit"
+            heading[7] = "Quantity"
+            heading[8] = "Profit"
 
+            var j=0;
             for (var i = 0; i < data.length; i++){
+            var p = data[i][7];
 
+                if(!p.localeCompare('Open')){
+                      stock[j]= new Array(data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][8],data[i][9]);
+                            j++;
+                }
 
-          stock[i]= new Array(data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9])
+                console.log(stock.length)
 
            } //TABLE COLUMNS
             var tr = document.createElement('TR');
@@ -149,3 +160,4 @@ function double(){
 $(document).ready(function(){
  setInterval(double,500);
 });
+
