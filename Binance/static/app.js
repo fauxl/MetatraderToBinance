@@ -74,15 +74,15 @@ if (!x.substr("UserID")){
     nav.innerHTML= "Login/Registrazione";
     nav.setAttribute('href', "http://127.0.0.1/login");
    drop.style.visibility="hidden";
-    nav.style.padding="2% 10% 2% 0% ";
-    div.style.padding="2% 9% 2% 0% ";
+    nav.style.padding="2% 0% 2% 0% ";
+    div.style.padding="2% 0% 2% 0% ";
     }
 else{
    var cookievalue = x.replace("userID="," ");
    nav.innerHTML= cookievalue;
    drop.style.visibility="visible";
    nav.setAttribute('href', "http://127.0.0.1");
-   nav.style.padding="2% 80% 2% 0%";
+   nav.style.padding="2% 0% 2% 0%";
 }
 
 });

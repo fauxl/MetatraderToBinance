@@ -1,12 +1,22 @@
 import Order as order
 from binance.client import Client
+import binance
 from binance.enums import *
 
 import GetData
 import apii
-client = Client('v0KV0jkGS4Ah28deG9jKPwpCPiA5Ku0PCfUz1mEGRLk4NX1ZhoyvtoFDH86t1bA3',
-                'F9DRH0F9WG2XChs0yze8k6kEcE2wVfe2Pp1MIGDwMVVRBhI846e0v3K5kSkQtrM6')
-def Object(t):
+def bconnection(key,secrete):
+    try:
+        client =  Client(key,
+                secrete)
+        status = client.get_account_status()
+        print(status)
+
+        return True
+    except KeyError:
+        return False
+
+def Object(t, client):
     #print(GetData.read())
     # get market depth
     #depth = client.get_order_book(symbol='BNBBTC')

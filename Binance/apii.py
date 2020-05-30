@@ -1,7 +1,7 @@
 import  flask
 from flask import Flask, jsonify, render_template, session, request
 from pymysql.constants.FIELD_TYPE import JSON
-from flask_login import LoginManager
+#from flask_login import LoginManager
 from flask import make_response, flash, session, redirect
 from datetime import timedelta
 
@@ -10,11 +10,12 @@ import BinanceApi
 from flaskext.mysql import MySQL
 from Order import Order
 from Users import Users
-
-login_manager = LoginManager()
-login_manager.login_view = '/login'
+from argparse import ArgumentParser
 
 app = Flask(__name__)
+
+app.secret_key = 'many random bytes'
+
 mysql = MySQL()
 
 app.config['MYSQL_DATABASE_USER'] = 'Fauxl'
@@ -27,16 +28,21 @@ mysql.init_app(app)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    resp = make_response(render_template("login.html"))
+    resp = render_template("login.html")
     if request.method == 'POST':
-        asd = request.json
+        username = request.form.get("username")
+        password = request.form.get("password")
+        print(username,password)
         max_age = timedelta(minutes=30)
         for i in LoginForm():
-            if str(i.user) == str(asd["username"]) and str(i.password) == str(asd["password"]):
-                print(i.PrintUser())
-                resp = make_response(redirect('/'))
-                resp.set_cookie('userID', i.user)
+            print(i.PrintUser())
+            if str(i.user) == str(username) and str(i.password) == str(password):
+                resp = flask.make_response(redirect('/'))
+                resp.set_cookie('userID', i.user, max_age)
                 return resp
+        else:
+            flask.flash('The username or password you entered are not correct')
+            return redirect('/login')
     return resp
 
 def LoginForm():
@@ -50,7 +56,12 @@ def LoginForm():
             user = row[0]
             password = row[1]
             email = row[2]
-            user = Users(user, password, email)
+            key = row[3]
+            skey= row[4]
+            ac = row[5]
+            ab = row[6]
+            an = row[7]
+            user = Users(user, password, email,key,skey,ac,an,ab)
             ArrayUser.append(user)
         cursor.close()
         return ArrayUser
@@ -62,8 +73,9 @@ def LoginForm():
 def register():
     if request.method == 'POST':
         asd = request.json
-        sql = ("INSERT INTO users VALUES (%s, %s,%s)")
-        values = (asd["username"], asd["password"],asd["email"])
+        sql = ("INSERT INTO users VALUES (%s, %s,%s,%s, %s,%s,%s, %s)")
+        Account = GetData.readAccountInfo()
+        values = (asd["username"], asd["password"],asd["email"],"","", Account.id, Account.balance, Account.name)
         conn = mysql.connect()
         cursor = conn.cursor()
         cursor.execute(sql, values)
@@ -77,7 +89,6 @@ def logout():
     resp = make_response(render_template('home.html'))
     resp.set_cookie('userID', expires=0)
     return resp
-
 
 
 @app.route('/getdata')
@@ -142,15 +153,19 @@ def modifyOrder(t):
 def RetrieveInfo():
     return "lol"
 
-def WriteOrder(asd):
+def WriteOrder(symbol, tp, sl,volume,tipo):
     f = open("C:/Users/FauxL/AppData/Roaming/MetaQuotes/Terminal/2E8DC23981084565FA3E19C061F586B2/MQL4/Files/WriteOrder.csv","w")
-    f.write(asd["simbolo"] +";"+ asd["volume"] +";"+asd["tipo"] +";"+ asd["SL"] +";"+asd["TP"])
+    f.truncate(0)
+    print(symbol)
+    f.write(symbol +";"+ tp +";"+sl +";"+ volume+";"+tipo)
     f.close()
+    return True
 
 
 
 @app.route('/home', methods=['GET', 'POST'])
 def addOrder():
+    name = request.cookies.get('userID')
     if getOrder() != []:
         for i in getOrder():
             for g in GetData.read():
@@ -181,8 +196,8 @@ def addOrder():
                 profit = t.profit
                 quantity = t.quantity
                 #BinanceApi.Object(t)
-                sql = ("INSERT INTO position VALUES (%s, %s,%s, %s,%s, %s,%s,%s,%s,%s)")
-                values = (ticket, typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit)
+                sql = ("INSERT INTO position VALUES (%s, %s,%s, %s,%s, %s,%s,%s,%s,%s,%s)")
+                values = (ticket, typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit,name)
                 conn = mysql.connect()
                 cursor = conn.cursor()
                 cursor.execute(sql,values)
@@ -210,11 +225,18 @@ def history():
 #@login_required
 @app.route("/insert", methods=['GET', 'POST'])
 def insert():
-
     print(GetData.readInfo())
     if request.method == 'POST':
-        asd = request.json
-        WriteOrder(asd)
+        symbol = request.form.get("symbol")
+        tp = request.form.get("tp")
+        sl = request.form.get("sl")
+        volume = request.form.get("volume")
+        tipo = request.form.get("tipo")
+        if WriteOrder(symbol, tp, sl,volume,tipo):
+            flask.flash('Your order has been sent to Metatrader successfully, check if it is open on your account!')
+            return redirect("/insert")
+        else:
+            flask.flash('There is a problem with your order!')
     return render_template("NewOrder.html")
 
 
@@ -224,13 +246,60 @@ def getTick():
     return jsonify(GetData.readInfo())
 
 
-@app.route("/copy")
+@app.route("/getSignals", methods=['GET'])
+def getSignals():
+    print(GetData.readSignal())
+    return jsonify(GetData.readSignal())
+
+@app.route("/copy",methods=['GET','POST'])
 def copy():
+    if request.method == 'POST':
+        key = request.form.get("key")
+        secrete = request.form.get("secrete")
+        print(key, secrete)
+        if(BinanceApi.bconnection(key,secrete)):
+            name = request.cookies.get('userID')
+            sql1 = (
+                "UPDATE users SET BinanceKey=%s, BinanceSKey=%s where user=%s")
+            values = (key, secrete, name)
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.execute(sql1, values)
+            conn.commit()
+            cursor.close()
+            flask.flash('Your binance account has successfully been inserted')
+            redirect('/copy')
+        else:
+            flask.flash('The key you entered it\' s not corrected')
+            redirect('/copy')
     return render_template("CopyTrading & Capture Signals.html")
 
-@app.route("/segnals")
-def segnals():
+@app.route("/signals", methods=['GET','POST'])
+def signals():
     return render_template("Capture Signals.html")
+
+@app.route("/data", methods=['GET', 'POST'])
+def data():
+    name = request.cookies.get('userID')
+    balance = GetData.readAccountInfo()
+    sql = ("UPDATE users SET AccountID=%s, AccountBalance=%s, AccountName=%s where user=%s")
+    print(balance.PrintAccount())
+    values = (balance.id, balance.balance, balance.name, name)
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute(sql, values)
+    conn.commit()
+    cursor.close()
+    return render_template("Data.html")
+
+@app.route("/getuserdata")
+def getuserdata():
+    name = request.cookies.get('userID')
+    for i in LoginForm():
+        if (i.user == name):
+            return jsonify(i.__dict__)
+
+
 
     """"
     render_template("index.html",

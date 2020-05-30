@@ -48,7 +48,7 @@
                     	<a class="dropbtn"  id="menmet">Metatrader </a><div class="dropdown-content" id="myDropdown">
                 <ul class="a">
 				<a href="http:\\127.0.0.1:80\copy"><li>Copy Trader To Binance</li></a>
-                <a href="http:\\127.0.0.1:80\segnals"><li>Capture Metatrader Signals</li></a>
+                <a href="http:\\127.0.0.1:80\signals"><li>Capture Metatrader Signals</li></a>
                  <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
                <a href="client"><li>Close Position</li></a>
                 <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
@@ -56,14 +56,15 @@
 
     </div></div></span>
 
-           <span><i class="far fa-user-circle"></i>
+           <span>
 <div id="drop" class="dropdownlog">
                      <a class="droplog" id = "login" href="\login">Login/Registrazione</a>
 
     <div class="dropdown-content" id="myDropdownn">
                 <ul class="a">
-				<a href="http:\\127.0.0.1:80\copy"><li>Show your data</li></a>
+				<a href="http:\\127.0.0.1:80\data"><li>Show your data</li></a>
                     <a href="http:\\127.0.0.1:80\logout"><li>Click to Logout</li></a></ul></div></div>
+               <i class="far fa-user-circle"></i>
            </span>
 
 
@@ -90,9 +91,22 @@
 
 <div class="paragraph", id="loginn">
 
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div  class="alert alert-primary alert-dismissible fade show" role="alert">
+               <button type="button" onclick="close()" class="close" id="chiudif" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                                                                        <span>{{ message }}</span>
 
+                </button>
+
+
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
     <div class="form" id=""here>
-
 
     <form id ="register" class="register-form">
 
@@ -102,10 +116,10 @@
       <button id="reg">create</button>
       <p class="message">Already registered? <a href="#here">Sign In</a></p>
     </form>
-    <form id="enter" class="login-form">
-           <input id="username" type="text" required placeholder="username"/>
-      <input id="pass" type="password" required placeholder="password"/>
-      <button id="log">login</button>
+    <form id="enter"  action="http://127.0.0.1/login" method="post" class="copy-form">
+           <input id="username" type="text" name="username" required placeholder="username"/>
+      <input id="pass" type="password" name="password"  required placeholder="password"/>
+        <button id="log" >login</button>
       <p class="message">Not registered? <a href="#here">Create an account</a></p>
     </form>
   </div>

@@ -32,6 +32,7 @@
 </head>
 
 <body>
+<script src="{{url_for('static', filename='app.js')}}"></script>
 <div id="backgroundpages">
     <nav id="myTopnav" class="topnav">
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">MENU
@@ -45,7 +46,7 @@
 <span> <i class="fas fa-chart-line"></i>
     <div class="dropdown">
                     	<a class="dropbtn"  id="menmet">Metatrader </a><div class="dropdown-content" id="myDropdown">
-                  <ul class="a">
+                <ul class="a">
 				<a href="http:\\127.0.0.1:80\copy"><li>Copy Trader To Binance</li></a>
                 <a href="http:\\127.0.0.1:80\signals"><li>Capture Metatrader Signals</li></a>
                  <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
@@ -83,40 +84,44 @@
 
 <div id="logopages">
 <a  href="http:\\127.0.0.1:80\home"><img src="../static/Images/WHITELOGO.png"></a>
-    <h1>Copy Trader</h1>
+    <h1>Personal Data</h1>
 </div>
 </div>
 
 
-<div class="paragraph", id="copy">
+<div class="paragraph", id="dpersonal">
+
+    <h2>Personal Information</h2>
+      <div id="data" >
+
+ <p id="inline"><label>Username: <input id="username" name="cp"  class="inserto" placeholder="Price" type="text" tabindex="2" required  readonly  ></label></p>
+
+      <p id="inline"><label>Email: <input id="email" name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required readonly></label></p>
+      <p id="inline"><label>Password:<input id="password"  name="sl" class="inserto" placeholder="Stop Loss" type="text" tabindex="3" required readonly></label></p>
+      </div>
+</div>
+
+<div class="paragraph", id="dmetatrader">
+    <h2>Metatrader</h2>
+<div id="data" >
+
+ <p id="inline"><label>Account Name: <input id="an" name="cp"  class="inserto" placeholder="Price" type="text" tabindex="2" required  readonly ></label></p>
+      <p id="inline"><label>Account Credit: <input id="ac" name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required readonly></label></p>
+            <p id="inline"><label>Account Balance: <input id="ab" name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required readonly></label></p>
 
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <div  class="alert alert-primary alert-dismissible fade show" role="alert">
-               <button type="button" onclick="close()" class="binance" id="chiudif" >
-                                                                        <span>{{ message }}</span>
-
-                </button>
-
-
-            </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-     <h3 id="log-des">To copy your orders, insert here the Binance key to perform the connection to your account :</h3>
-
-<div class="container">
-  <form id="contact" action="http://127.0.0.1/copy" method="post">
-    <p id="inline"> <label>Key:  <input class="inserto" placeholder="Key" name="key" type="text" tabindex="1" required autofocus></label></p>
-     <p id="inline"><label>Secrete Key: <input   class="inserto"placeholder="Secret Key" name="secrete" type="text" tabindex="2" required></label></p>
-
-      <button name="submit" type="submit" id="contact-submit" >Submit</button>
-  </form>
 </div>
 </div>
 
+<div class="paragraph", id="dbinance">
+    <h2>Binance</h2>
+<div id="data" >
+
+ <p id="inline"><label>Key: <input id="key" name="cp"  class="inserto" placeholder="Price" type="text" tabindex="2" required  readonly ></label></p>
+
+      <p id="inline"><label>Secret Key: <input id="skey" name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required readonly></label></p>
+      </div>
+</div>
 
 <footer>
     <div id="contacts">
@@ -133,7 +138,10 @@
 
     <p>Copyright &#169; 2020 by Hydron</p>
 </footer>
- <script src="{{url_for('static', filename='app.js')}}"></script>
 </body>
+ <script src="{{url_for('static', filename='app.js')}}"></script>
+ <script src="{{url_for('static', filename='data.js')}}"></script>
+ <script src="{{url_for('static', filename='login.js')}}"></script>
+
 
 </html>

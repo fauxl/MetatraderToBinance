@@ -55,14 +55,15 @@
 
     </div></div></span>
 
-           <span><i class="far fa-user-circle"></i>
+           <span>
 <div id="drop" class="dropdownlog">
                      <a class="droplog" id = "login" href="\login">Login/Registrazione</a>
 
     <div class="dropdown-content" id="myDropdownn">
                 <ul class="a">
-				<a href="http:\\127.0.0.1:80\copy"><li>Show your data</li></a>
+				<a href="http:\\127.0.0.1:80\data"><li>Show your data</li></a>
                     <a href="http:\\127.0.0.1:80\logout"><li>Click to Logout</li></a></ul></div></div>
+          <i class="far fa-user-circle"></i>
            </span>
 
 
@@ -93,13 +94,26 @@
      <h3 id="log-des">To open and copy orders from signals of important financial traders, select a signal:</h3>
 
 <div class="container">
-  <form id="contact" action="" method="post">
-    <p id="inline"> <label>Key:  <input class="inserto" placeholder="Symbol" type="text" tabindex="1" required autofocus></label></p>
-    </form>
-
-      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+  <form id="contact" action="post">
+      <p id="inline"> <label>Signal Currency: <select onchange="getsig()" id="symbol" class="inserto"  name="symbol" required autofocus >
+          <option selected="true" disabled="">Choose the Currency</option>
+          <option value="all">ALL</option>
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+          <option value="RUR">RUR</option>
+          <option value="GBP">GBP</option>
+      </select></label></p>
+      <p id="inline"> <label>Order by: <select onchange="sortTable()" id="sorder" class="inserto"  name="order" required autofocus >
+          <option selected="true" disabled="">Choose the ordering method</option>
+          <option value="1">PIPS</option>
+          <option value="2">SUBSCRIBERS</option>
+      </select></label></p>
   </form>
 </div>
+
+    <div id="getsignals">
+            <h2>Signals</h2>
+    </div>
 </div>
 
 <footer>
@@ -118,6 +132,8 @@
     <p>Copyright &#169; 2020 by Hydron</p>
 </footer>
  <script src="{{url_for('static', filename='app.js')}}"></script>
+ <script src="{{url_for('static', filename='signals.js')}}"></script>
+
 </body>
 
 </html>

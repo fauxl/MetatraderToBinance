@@ -7,7 +7,9 @@ import json
 from json import  JSONEncoder
 
 from Order import Order
+from Signal import Signal
 from Ticket import  Ticket
+from Account import  Account
 from Ticket import TicketEncoder
 
 def  read():
@@ -68,3 +70,47 @@ def readInfo():
         ticket = Ticket(symbol, price)
         SymbolArray.append(ticket.__dict__)
     return SymbolArray
+
+def readSignal():
+    count = 0
+    separator = ";"
+    f = open(
+        "C:/Users/FauxL/AppData/Roaming/MetaQuotes/Terminal/2E8DC23981084565FA3E19C061F586B2/MQL4/Files/SignalInfo.csv","r")
+
+    n = f.readlines()
+
+    SignalArray = []
+
+    for i in n:
+        result = i.split(separator)
+        id = result[1]
+        pips= result[2]
+        subs = result[3]
+        name = result[4]
+        currency = result[5]
+        signal= Signal(id, pips, subs, name, currency)
+        SignalArray.append(signal.__dict__)
+    print(len(SignalArray))
+    return SignalArray
+
+
+def readAccountInfo():
+    count = 0
+    separator = ";"
+    f = open(
+        "C:/Users/FauxL/AppData/Roaming/MetaQuotes/Terminal/2E8DC23981084565FA3E19C061F586B2/MQL4/Files/InfoConto.csv","r")
+
+    n = f.readlines()
+
+    InfoArray = []
+
+    for i in n:
+        result = i.split(separator)
+        if result[1]!="Number":
+            id = result[1]
+            pips= result[2]
+            subs = result[3]
+            account = Account(id, pips, subs)
+            return account
+    print(len(InfoArray))
+    return InfoArray
