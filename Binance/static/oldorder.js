@@ -7,19 +7,35 @@ function getdata(){
             success: function (data) {
          if($('table#table1').length){
 
-         var removeTab = document.getElementById('table1');
+        var removeTab = document.getElementById('table1');
+         var removeTit = document.getElementById('metitle');
         var parentEl = removeTab.parentElement;
         parentEl.removeChild(removeTab);
+         parentEl.removeChild(removeTit)
+
             }
                         var stock = new Array()
             var myTableDiv = document.getElementById("metatrader")
 
             var table = document.createElement('TABLE')
-               table.id = "table1";
-            var tableBody = document.createElement('TBODY')
+            var title = document.createElement('H2')
+            var t = document.createTextNode("Your Order History in Metatrader");
+            // Create a text node
 
-            table.border = '1'
+               table.id = "table1";
+               title.id = "metitle"
+
+            var tableBody = document.createElement('TBODY')
+            tableBody.id = "tbody";
+            var tableHead = document.createElement('THEAD')
+
+
+                   table.border = '1'
+            table.appendChild(tableHead)
             table.appendChild(tableBody);
+            title.appendChild(t)
+            myTableDiv.appendChild(title)
+
 
             var heading = new Array();
             heading[0] = "Ticket"
@@ -28,7 +44,7 @@ function getdata(){
             heading[3] = "Stop Loss"
             heading[4] = "Take Profit"
             heading[5] = "Order Opening"
-            heading[6] = "Price at the moment"
+            heading[6] = "Close Price"
             heading[7] = "Quantity"
             heading[8] = "Profit"
             console.log(data)
@@ -46,7 +62,7 @@ function getdata(){
 
            } //TABLE COLUMNS
             var tr = document.createElement('TR');
-            tableBody.appendChild(tr);
+            tableHead.appendChild(tr);
             for (i = 0; i < heading.length; i++) {
                 var th = document.createElement('TH')
                 th.width = '75';
@@ -68,7 +84,11 @@ function getdata(){
 
             myTableDiv.appendChild(table)
 
-
+$('#tbody').pageMe({
+  pagerSelector:'#myPager',
+  perPage: 3,
+  hidePageNumbers: false
+});
 
 
 
@@ -86,19 +106,36 @@ function getBinancedata(){
             success: function (data) {
          if($('table#table2').length){
 
+
          var removeTab = document.getElementById('table2');
+         var removeTit = document.getElementById('bintitle');
         var parentEl = removeTab.parentElement;
         parentEl.removeChild(removeTab);
+         parentEl.removeChild(removeTit)
+
             }
                         var stock = new Array()
             var myTableDiv = document.getElementById("binance")
 
             var table = document.createElement('TABLE')
+             var title = document.createElement('H2')
+            var t = document.createTextNode("Your Order History in Binance");
+            // Create a text node
                table.id = "table2";
-            var tableBody = document.createElement('TBODY')
+               title.id = "bintitle";
 
-            table.border = '1'
+            var tableBody = document.createElement('TBODY')
+               tableBody.id = "tbodyb";
+            var tableHead = document.createElement('THEAD')
+
+
+                     table.border = '1'
+            table.appendChild(tableHead)
             table.appendChild(tableBody);
+            title.appendChild(t)
+            myTableDiv.appendChild(title)
+
+
 
             var heading = new Array();
             heading[0] = "Ticket"
@@ -107,7 +144,7 @@ function getBinancedata(){
             heading[3] = "Stop Loss"
             heading[4] = "Take Profit"
             heading[5] = "Order Opening"
-            heading[6] = "Price at the moment"
+            heading[6] = "Close Price"
             heading[7] = "Quantity"
             heading[8] = "Profit"
 
@@ -124,7 +161,7 @@ function getBinancedata(){
 
            } //TABLE COLUMNS
             var tr = document.createElement('TR');
-            tableBody.appendChild(tr);
+            tableHead.appendChild(tr);
             for (i = 0; i < heading.length; i++) {
                 var th = document.createElement('TH')
                 th.width = '75';
@@ -146,10 +183,19 @@ function getBinancedata(){
 
             myTableDiv.appendChild(table)
 
+  $('#tbodyb').pageMe({
+  pagerSelector:'#myPagerb',
+  perPage: 3,
+  hidePageNumbers: false
+});
+
   }
+
 
   });
   }
+
+
 
 function double(){
     getdata();
@@ -157,7 +203,25 @@ function double(){
 
 }
 
+
 $(document).ready(function(){
-double();
+
+var x = document.cookie;
+if (!x.substr("UserID")){
+var mt = document.getElementById('metatrader');
+var bi = document.getElementById('binance');
+ var parentElM = mt.parentElement;
+  var parentElB = bi.parentElement;
+        parentElM.removeChild(mt);
+        parentElB.removeChild(bi);
+}else{
+var ab = document.getElementById('about');
+ var parentEl = ab.parentElement;
+        parentEl.removeChild(ab);
+   double();
+
+}
+
 });
+
 

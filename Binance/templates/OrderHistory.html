@@ -20,8 +20,10 @@
           rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="static/style.css">
     <link type="text/css" rel="stylesheet" href="static/style.css">
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="materialize.min.js"></script>
 <script src="https://kit.fontawesome.com/410e5bdac4.js" crossorigin="anonymous"></script>
 
     <link rel="shortcut icon" href="Images/logo.png" type="image/png">
@@ -38,10 +40,17 @@
         &#9776; </a>
     <i class="fas fa-home"></i>
 
-    <span><a id ="home" href="http:\\127.0.0.1:80">Home</a></span>
+    <span><a id ="home" href="http:\\127.0.0.1:80\home">Home</a></span>
                                    <span><i class="fas fa-coins"></i>
-			<a href="#metatrader" id="binmen">Binance</a>
-                </span>
+                 <div class="dropdown">
+                    	<a class="dropbtn"  id="binmen">Binance </a><div class="dropdown-content" id="myDropdown">
+                  <ul class="a">
+                 <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
+                <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
+                </ul>
+
+    </div></div></span>
+
 <span> <i class="fas fa-chart-line"></i>
     <div class="dropdown">
                     	<a class="dropbtn"  id="menmet">Metatrader </a><div class="dropdown-content" id="myDropdown">
@@ -49,7 +58,6 @@
 				<a href="http:\\127.0.0.1:80\copy"><li>Copy Trader To Binance</li></a>
                 <a href="http:\\127.0.0.1:80\signals"><li>Capture Metatrader Signals</li></a>
                  <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
-               <a href="client"><li>Close Position</li></a>
                 <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
                 </ul>
 
@@ -85,16 +93,30 @@
 <a  href="http:\\127.0.0.1:80\home"><img src="../static/Images/WHITELOGO.png"></a>
     <h1>Order History</h1>
 </div>
+ </div>
+
+ <div class="paragraph", id="about">
+
+    <p>Here you will be able to see the history of the orders you closed; in order to do that you just have to register to this webiste, and follow the instruction
+    given in the home page!</p>
+
 </div>
-<div id="tables">
+
+
 <div class="paragraph", id="metatrader">
-    <h2>Metatrader</h2>
+
+</div>
+
+<div id="pager">
+<ul class="pagination pager" id="myPager"></ul>
 </div>
 
 
 <div class="paragraph", id="binance">
-    <h2>Binance</h2>
 </div>
+
+<div id="pager">
+<ul class="pagination pager" id="myPagerb"></ul>
 </div>
 
 
@@ -116,6 +138,7 @@
 </footer>
  <script src="{{url_for('static', filename='app.js')}}"></script>
  <script src="{{url_for('static', filename='oldorder.js')}}"></script>
+<script src="{{url_for('static', filename='pagination.js')}}"></script>
 
 </body>
 

@@ -11,8 +11,12 @@ function getsig(){
             if($('table#table1').length){
 
          var removeTab = document.getElementById('table1');
+         var remove = document.getElementById('myPager');
         var parentEl = removeTab.parentElement;
+       var parentPA = remove.parentElement;
+
         parentEl.removeChild(removeTab);
+        parentPA.removeChild(remove)
             }
 
             var stock = new Array()
@@ -21,8 +25,12 @@ function getsig(){
             var table = document.createElement('TABLE')
                table.id = "table1";
             var tableBody = document.createElement('TBODY')
+            tableBody.id = "tbody";
+            var tableHead = document.createElement('THEAD')
 
-            table.border = '1'
+
+                     table.border = '1'
+            table.appendChild(tableHead)
             table.appendChild(tableBody);
 
             var heading = new Array();
@@ -31,6 +39,7 @@ function getsig(){
             heading[2] = "Signal Subscribers"
             heading[3] = "Signal Name"
             heading[4] = "Signal Currency"
+            heading[5] = "Choose Signal"
 
             d = document.getElementById("symbol").value
             if(d.localeCompare("Choose the Currency")==0){
@@ -70,17 +79,35 @@ function getsig(){
                   //TABLE ROWS
             for (i = 0; i < stock.length; i++) {
     var tr = document.createElement('TR');
+    var nick="tr"+i
+    tr.id = nick
     for (j = 0; j < stock[i].length; j++) {
         var td = document.createElement('TD')
         td.appendChild(document.createTextNode(stock[i][j]));
         tr.appendChild(td)
     }
+            var td = document.createElement('TD')
+         var aTag = document.createElement('a');
+             aTag.setAttribute('href',"javascript:choose("+nick+")");
+     aTag.innerHTML='<i class="fas fa-signal"></i>'
+      td.appendChild(aTag)
+              tr.appendChild(td)
     tableBody.appendChild(tr);
 }
 
             myTableDiv.appendChild(table)
+            var div = document.getElementById("pager")
+            var ul = document.createElement('UL')
+            ul.classList.add("pagination")
+            ul.id = "myPager"
+            div.appendChild(ul)
 
 
+ $('#tbody').pageMe({
+  pagerSelector:'#myPager',
+  perPage: 15,
+  hidePageNumbers: false
+});
   }
 
   });
@@ -90,11 +117,16 @@ function getsig(){
 
 $(document).ready(function(){
     getsig();
+
 });
 
 
 
  function sortTable() {
+
+          var remove = document.getElementById('myPager');
+       var parentPA = remove.parentElement;
+        parentPA.removeChild(remove)
 
  d = document.getElementById("sorder").value
  console.log(d)
@@ -131,4 +163,44 @@ $(document).ready(function(){
       switching = true;
     }
   }
+
+            var div = document.getElementById("pager")
+            var ul = document.createElement('UL')
+            ul.classList.add("pagination")
+            ul.id = "myPager"
+            div.appendChild(ul)
+
+   $('#tbody').pageMe({
+  pagerSelector:'#myPager',
+  perPage: 15,
+  hidePageNumbers: false
+});
 }
+
+
+function choose(par){
+console.log(par)
+var c = par.childNodes;
+
+            data = {
+             "code": c[0].innerHTML,
+
+            }
+            console.log(data)
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                url: 'http://127.0.0.1/csignal',
+                success: function (e) {
+                    console.log(e);
+                },
+                error: function(error) {
+                console.log(error);
+            }
+            });
+}
+
+
+

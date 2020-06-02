@@ -4,13 +4,17 @@ from pymysql.constants.FIELD_TYPE import JSON
 #from flask_login import LoginManager
 from flask import make_response, flash, session, redirect
 from datetime import timedelta
+from flask import *
 
 import GetData
 import BinanceApi
+from functools import wraps
+from flask import abort
 from flaskext.mysql import MySQL
 from Order import Order
 from Users import Users
 from argparse import ArgumentParser
+
 
 app = Flask(__name__)
 
@@ -26,6 +30,17 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
 
+def logged(func):
+    @wraps(func)
+    def wrapper():
+        name = request.cookies.get('userID')
+        if (name == None):
+            return redirect('/home')
+        else:
+            return func()
+    return wrapper
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     resp = render_template("login.html")
@@ -33,12 +48,13 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         print(username,password)
-        max_age = timedelta(minutes=30)
+        max_age = timedelta(minutes=120)
         for i in LoginForm():
             print(i.PrintUser())
             if str(i.user) == str(username) and str(i.password) == str(password):
-                resp = flask.make_response(redirect('/'))
+                resp = flask.make_response(redirect('/home'))
                 resp.set_cookie('userID', i.user, max_age)
+
                 return resp
         else:
             flask.flash('The username or password you entered are not correct')
@@ -69,6 +85,7 @@ def LoginForm():
         print(e)
 
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -84,6 +101,7 @@ def register():
 
 
 @app.route("/logout")
+@logged
 def logout():
     #session['logged_in'] = False
     resp = make_response(render_template('home.html'))
@@ -161,11 +179,9 @@ def WriteOrder(symbol, tp, sl,volume,tipo):
     f.close()
     return True
 
-
-
+@logged
 @app.route('/home', methods=['GET', 'POST'])
 def addOrder():
-    name = request.cookies.get('userID')
     if getOrder() != []:
         for i in getOrder():
             for g in GetData.read():
@@ -174,7 +190,6 @@ def addOrder():
                 else:
                     i.stato = "Closed"
             modifyOrder(i)
-
     for t in GetData.read():
         found = "no"
         t.stato = "Open"
@@ -196,8 +211,10 @@ def addOrder():
                 profit = t.profit
                 quantity = t.quantity
                 #BinanceApi.Object(t)
+                name = request.cookies.get('userID')
+                print(name)
                 sql = ("INSERT INTO position VALUES (%s, %s,%s, %s,%s, %s,%s,%s,%s,%s,%s)")
-                values = (ticket, typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit,name)
+                values = (ticket, typeop,symbol,SL,TP,Orderop,close,stato,quantity,profit,"FauxL")
                 conn = mysql.connect()
                 cursor = conn.cursor()
                 cursor.execute(sql,values)
@@ -213,17 +230,19 @@ def getOBinance():
     return ArrayOrder
 
 
-@app.route("/")
+@app.route("/home")
 def index():
     return render_template("Home.html")
 
 
 @app.route("/history")
+@logged
 def history():
     return render_template("OrderHistory.html")
 
 #@login_required
 @app.route("/insert", methods=['GET', 'POST'])
+@logged
 def insert():
     print(GetData.readInfo())
     if request.method == 'POST':
@@ -252,6 +271,7 @@ def getSignals():
     return jsonify(GetData.readSignal())
 
 @app.route("/copy",methods=['GET','POST'])
+@logged
 def copy():
     if request.method == 'POST':
         key = request.form.get("key")
@@ -275,10 +295,12 @@ def copy():
     return render_template("CopyTrading & Capture Signals.html")
 
 @app.route("/signals", methods=['GET','POST'])
+@logged
 def signals():
     return render_template("Capture Signals.html")
 
 @app.route("/data", methods=['GET', 'POST'])
+@logged
 def data():
     name = request.cookies.get('userID')
     balance = GetData.readAccountInfo()
@@ -298,6 +320,41 @@ def getuserdata():
     for i in LoginForm():
         if (i.user == name):
             return jsonify(i.__dict__)
+
+@app.route("/close",methods=['GET', 'POST'])
+def close():
+    if request.method == 'POST':
+        asd = request.json
+
+    if Update(str(asd["code"]),str(-1),str(-1)):
+       # flask.flash('Your request to close the order has been sent! ')
+        return redirect("/home")
+
+@app.route("/update",methods=['GET', 'POST'])
+def update():
+    if request.method == 'POST':
+        asd = request.json
+
+    if Update(str(asd["code"]),str(asd["sl"]),str(asd["tp"])):
+        # flask.flash('Your request to close the order has been sent! ')
+        return redirect("/home")
+
+@app.route("/csignal",methods=['GET', 'POST'])
+def csignal():
+    if request.method == 'POST':
+        asd = request.json
+
+    if Update(str(asd["code"]),str(-2),str(-2)):
+        # flask.flash('Your request to close the order has been sent! ')
+        return redirect("/home")
+
+def Update(code, tp, sl):
+    f = open("C:/Users/FauxL/AppData/Roaming/MetaQuotes/Terminal/2E8DC23981084565FA3E19C061F586B2/MQL4/Files/Update.csv","w")
+    f.truncate(0)
+    print(code)
+    f.write(code +";"+ tp +";"+sl +";")
+    f.close()
+    return True
 
 
 

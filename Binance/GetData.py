@@ -106,11 +106,11 @@ def readAccountInfo():
 
     for i in n:
         result = i.split(separator)
-        if result[1]!="Number":
-            id = result[1]
-            pips= result[2]
-            subs = result[3]
-            account = Account(id, pips, subs)
+        if result[1]!="AccountBalance":
+            balance = result[1]
+            name= result[2]
+            number = result[3]
+            account = Account( number, name, balance)
             return account
     print(len(InfoArray))
     return InfoArray

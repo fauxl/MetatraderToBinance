@@ -66,6 +66,7 @@ $(document).ready( function() {
 var x = document.cookie;
 var nav = document.getElementById("login");
 var div = document.getElementById("drop");
+var dropMeta = document.getElementById("myDropdown");
 var drop = document.getElementById("myDropdownn");
 
 console.log(drop);
@@ -74,6 +75,7 @@ if (!x.substr("UserID")){
     nav.innerHTML= "Login/Registrazione";
     nav.setAttribute('href', "http://127.0.0.1/login");
    drop.style.visibility="hidden";
+   dropMeta.style.visibility="hidden";
     nav.style.padding="2% 0% 2% 0% ";
     div.style.padding="2% 0% 2% 0% ";
     }
@@ -81,7 +83,8 @@ else{
    var cookievalue = x.replace("userID="," ");
    nav.innerHTML= cookievalue;
    drop.style.visibility="visible";
-   nav.setAttribute('href', "http://127.0.0.1");
+   dropMeta.style.visibility="visible";
+   nav.setAttribute('href', "http://127.0.0.1/home");
    nav.style.padding="2% 0% 2% 0%";
 }
 

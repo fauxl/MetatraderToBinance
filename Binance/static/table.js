@@ -42,6 +42,11 @@ function getdata(){
             heading[6] = "Price at the moment"
             heading[7] = "Quantity"
             heading[8] = "Profit"
+            heading[9] = "Close Order"
+            heading[10] = "Modify Order"
+            heading[11] = "Copy to Binance"
+
+
             console.log(data)
 
           var j=0;
@@ -69,21 +74,48 @@ function getdata(){
                   //TABLE ROWS
             for (i = 0; i < stock.length; i++) {
     var tr = document.createElement('TR');
+    var nick="tr"+i
+    tr.id=nick
     for (j = 0; j < stock[i].length; j++) {
         var td = document.createElement('TD')
         td.appendChild(document.createTextNode(stock[i][j]));
+        td.id=j
         tr.appendChild(td)
-    }
-    tableBody.appendChild(tr);
-}
+      }
+               var td = document.createElement('TD')
+            var aTag = document.createElement('a');
+                aTag.setAttribute('href',"javascript:close("+nick+")");
 
-            myTableDiv.appendChild(table)
+        aTag.innerHTML='<i class="fas fa-times-circle"></i>'
+         td.appendChild(aTag)
+                 tr.appendChild(td)
 
 
+    var td = document.createElement('TD')
+            var aTag = document.createElement('a');
+                aTag.setAttribute('href',"javascript:update("+nick+")");
+        aTag.innerHTML = '<i class="fas fa-pen"></i>'
+
+         td.appendChild(aTag)
+                 tr.appendChild(td)
 
 
+                   var td = document.createElement('TD')
+            var aTag = document.createElement('a');
+                aTag.setAttribute('href',"javascript:copy("+nick+")");
+        aTag.innerHTML = '<i class="fas fa-file-import"></i>'
 
-  }
+         td.appendChild(aTag)
+                 tr.appendChild(td)
+
+       tableBody.appendChild(tr);
+   }
+
+               myTableDiv.appendChild(table)
+
+
+     }
+
 
   });
   }
@@ -142,7 +174,7 @@ function getBinancedata(){
 
 
                 if(!p.localeCompare('Open')){
-                      stock[j]= new Array(data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][8],data[i][9],'X','X');
+                      stock[j]= new Array(data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][8],data[i][9]);
                             j++;
                 }
 
@@ -150,6 +182,8 @@ function getBinancedata(){
 
            } //TABLE COLUMNS
             var tr = document.createElement('TR');
+               var nick="tr"+i
+               tr.id = nick
             tableBody.appendChild(tr);
             for (i = 0; i < heading.length; i++) {
                 var th = document.createElement('TH')
@@ -162,11 +196,27 @@ function getBinancedata(){
                            //TABLE ROWS
             for (i = 0; i < stock.length; i++) {
     var tr = document.createElement('TR');
+
     for (j = 0; j < stock[i].length; j++) {
         var td = document.createElement('TD')
         td.appendChild(document.createTextNode(stock[i][j]));
         tr.appendChild(td)
     }
+            var td = document.createElement('TD')
+         var aTag = document.createElement('a');
+             aTag.setAttribute('href',"javascript:close("+nick+")");
+     aTag.innerHTML='<i class="fas fa-times-circle"></i>'
+      td.appendChild(aTag)
+              tr.appendChild(td)
+
+
+ var td = document.createElement('TD')
+         var aTag = document.createElement('a');
+             aTag.setAttribute('href',"javascript:update("+nick+")");
+     aTag.innerHTML = '<i class="fas fa-pen"></i>'
+
+      td.appendChild(aTag)
+              tr.appendChild(td)
     tableBody.appendChild(tr);
 }
 
@@ -181,9 +231,7 @@ function getBinancedata(){
 function double(){
     getdata();
     getBinancedata();
-
 }
-
 
 
 $(document).ready(function(){
@@ -197,13 +245,60 @@ var bi = document.getElementById('binance');
         parentElM.removeChild(mt);
         parentElB.removeChild(bi);
 
-
 }else{
 var ab = document.getElementById('about');
  var parentEl = ab.parentElement;
         parentEl.removeChild(ab);
-    setInterval(double,500);
+    setInterval(double,1000);
 }
-
 });
 
+function close(par){
+console.log(par)
+var c = par.childNodes;
+            data = {
+                "code": c[0].innerHTML
+            }
+            console.log(data)
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                url: 'http://127.0.0.1/close',
+                success: function (e) {
+                    console.log(e);
+                },
+                error: function(error) {
+                console.log(error);
+            }
+            });
+}
+
+function update(par){
+console.log(par)
+var c = par.childNodes;
+var sl = prompt("Please enter the new StopLoss Value:", "");
+var tp = prompt("Please enter the new TakeProfit Value:", "");
+
+            data = {
+             "code": c[0].innerHTML,
+             "sl": sl,
+             "tp": tp
+
+            }
+            console.log(data)
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                url: 'http://127.0.0.1/update',
+                success: function (e) {
+                    console.log(e);
+                },
+                error: function(error) {
+                console.log(error);
+            }
+            });
+}

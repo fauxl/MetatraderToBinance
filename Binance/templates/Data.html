@@ -39,10 +39,16 @@
         &#9776; </a>
     <i class="fas fa-home"></i>
 
-    <span><a id ="home" href="http:\\127.0.0.1:80">Home</a></span>
-                                   <span><i class="fas fa-coins"></i>
-			<a href="#metatrader" id="binmen">Binance</a>
-                </span>
+        <span><a id ="home" href="http:\\127.0.0.1:80\home">Home</a></span>
+        <span><i class="fas fa-coins"></i>
+                 <div class="dropdown">
+                    	<a class="dropbtn"  id="binmen">Binance </a><div class="dropdown-content" id="myDropdown">
+                  <ul class="a">
+                 <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
+                <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
+                </ul>
+
+    </div></div></span>
 <span> <i class="fas fa-chart-line"></i>
     <div class="dropdown">
                     	<a class="dropbtn"  id="menmet">Metatrader </a><div class="dropdown-content" id="myDropdown">
@@ -50,7 +56,6 @@
 				<a href="http:\\127.0.0.1:80\copy"><li>Copy Trader To Binance</li></a>
                 <a href="http:\\127.0.0.1:80\signals"><li>Capture Metatrader Signals</li></a>
                  <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
-               <a href="client"><li>Close Position</li></a>
                 <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
                 </ul>
 
@@ -88,8 +93,8 @@
 </div>
 </div>
 
-
-<div class="paragraph", id="dpersonal">
+<span id="info">
+<span class="paragraph", id="dpersonal">
 
     <h2>Personal Information</h2>
       <div id="data" >
@@ -99,28 +104,29 @@
       <p id="inline"><label>Email: <input id="email" name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required readonly></label></p>
       <p id="inline"><label>Password:<input id="password"  name="sl" class="inserto" placeholder="Stop Loss" type="text" tabindex="3" required readonly></label></p>
       </div>
-</div>
+</span>
 
-<div class="paragraph", id="dmetatrader">
+<span class="paragraph", id="dmetatrader">
     <h2>Metatrader</h2>
-<div id="data" >
+<span id="data" >
 
  <p id="inline"><label>Account Name: <input id="an" name="cp"  class="inserto" placeholder="Price" type="text" tabindex="2" required  readonly ></label></p>
       <p id="inline"><label>Account Credit: <input id="ac" name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required readonly></label></p>
             <p id="inline"><label>Account Balance: <input id="ab" name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required readonly></label></p>
 
 
-</div>
-</div>
-
+</span>
+</span>
+</span>
 <div class="paragraph", id="dbinance">
     <h2>Binance</h2>
-<div id="data" >
+<div id="datab" >
 
  <p id="inline"><label>Key: <input id="key" name="cp"  class="inserto" placeholder="Price" type="text" tabindex="2" required  readonly ></label></p>
 
       <p id="inline"><label>Secret Key: <input id="skey" name="tp"  class="inserto" placeholder="Take Profit" type="text" tabindex="2" required readonly></label></p>
       </div>
+</div>
 </div>
 
 <footer>
