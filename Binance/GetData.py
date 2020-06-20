@@ -83,6 +83,7 @@ def readSignal():
 
     for i in n:
         result = i.split(separator)
+        print(result)
         id = result[1]
         pips= result[2]
         subs = result[3]
