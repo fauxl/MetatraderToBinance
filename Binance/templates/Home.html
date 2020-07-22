@@ -1,0 +1,161 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>Metatrader To Binance</title>
+
+    <meta name="author" content="Gerardo De Rosa">
+    <meta name="keywords" content="De Rosa, Gerardo, MetatraderToBinance">
+    <meta name="description" content="MetatraderToBinance application">
+    <meta name="viewport"
+          content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu"
+          rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="static/style.css">
+    <link type="text/css" rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+
+    <script src="https://kit.fontawesome.com/410e5bdac4.js" crossorigin="anonymous"></script>
+
+
+    <link rel="shortcut icon" href="Images/logo.png" type="image/png">
+    <link rel="icon" href="Images/logo.png" type="image/png">
+
+
+</head>
+
+<body>
+<div id="background">
+    <nav id="myTopnav" class="topnav">
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">MENU
+        &#9776; </a>
+    <i class="fas fa-home"></i>
+
+        <span><a id ="home" href="http:\\127.0.0.1:80\home">Home</a></span>
+        <span><i class="fas fa-coins"></i>
+                 <div class="dropdown">
+                    	<a class="dropbtn"  id="binmen">Binance </a><div class="dropdown-content" id="myDropdown">
+                  <ul class="a">
+                 <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
+                <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
+                </ul>
+
+    </div></div></span>
+<span> <i class="fas fa-chart-line"></i>
+    <div class="dropdown">
+                    	<a class="dropbtn"  id="menmet">Metatrader </a><div class="dropdown-content" id="myDropdown">
+                <ul class="a">
+				<a href="http:\\127.0.0.1:80\copy"><li>Copy Trader To Binance</li></a>
+                <a href="http:\\127.0.0.1:80\signals"><li>Capture Metatrader Signals</li></a>
+                 <a href="http:\\127.0.0.1:80\insert"> <li>Open Position</li></a>
+                <a href="http:\\127.0.0.1:80\history"><li>Order History</li></a>
+                </ul>
+
+    </div></div></span>
+
+<div id="drop" class="dropdownlog">
+                     <a class="droplog" id = "login" href="\login">Login/Registrazione</a>
+
+    <div class="dropdown-content" id="myDropdownn">
+                <ul class="a">
+				<a href="http:\\127.0.0.1:80\data"><li>Show your data</li></a>
+                    <a href="http:\\127.0.0.1:80\logout"><li>Click to Logout</li></a></ul></div></div>
+                    <span><i class="far fa-user-circle"></i>
+           </span>
+
+
+    <script>
+			function myFunction() {
+				var x = document.getElementById("myTopnav");
+				if (x.className == "topnav") {
+					x.className += " responsive";
+				} else {
+					x.className = "topnav";
+				}
+			}
+		</script>
+
+
+</nav>
+
+<div id="logon">
+<a  href="http:\\127.0.0.1:80\home"><img src="../static/Images/WHITELOGO.png"></a>
+</div>
+</div>
+
+
+<div class="paragraph", id="about">
+
+    <p>The purpose of this application written in MQL4 and python, is to help all the person who want to use the usefull metatrader Expert-Advisor to
+    trade safely on the Binance Platform. By using the Binance Api all the orders you open in MetaTrader
+    will be available to be opened at the same price, with the same StopLoss and TakeProfit, quantity ecc on the Binance platform; That's not all, SL and TP will be modified simultaniosely in MetaTrader and Binance and
+    you will be also be able to be able to close the transaction in Binance when it is closed in MetaTrader or Viceversa. On this page you will see which one of your orders are opened in MT and which
+    of them on Binance, You will also be able to check the closed Order and get other usefull info!</p>
+
+    <p>To start using this syte, download the <a href="https://drive.google.com/file/d/1dU5dnT7CI29czdgxSdHzOabpjLirIsE2/view?usp=sharing">mql4 expert</a>, register to this website and login.</p>
+</div>
+
+
+<div class="paragraph", id="metatrader">
+</div>
+
+
+<div class="paragraph", id="binance">
+</div>
+
+
+
+
+    <!--		Start Pagination -->
+    <div class='pagination-container' >
+        <nav>
+            <ul class="pagination">
+
+                <li data-page="prev" >
+                    <span> < <span class="sr-only">(current)</span></span>
+                </li>
+                <!--	Here the JS Function Will Add the Rows -->
+                <li data-page="next" id="prev">
+                    <span> > <span class="sr-only">(current)</span></span>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div> <!-- 		End of Container -->
+
+
+
+
+<footer>
+    <div id="contacts">
+        <h2 id="contacts">References</h2>
+        <a href="https://www.binance.com/en"><img alt=""
+                                                                 id="cont" src="../static/Images/binance.com.svg"></a> <a
+            href="https://docs.mql4.com/"><img alt="" id="cont"
+                                                       src="../static/Images/metatrader.png"></a> <a href=" https://www.python.org/"><img
+            alt="" id="cont" src="../static/Images/Python.svg"></a>
+        <a href=" "><img
+            alt="" id="hydron" src="../static/Images/hydron-logo.png"></a>
+
+    </div>
+
+    <p>Copyright &#169; 2020 by Hydron</p>
+</footer>
+ <script src="{{url_for('static', filename='app.js')}}"></script>
+ <script src="{{url_for('static', filename='table.js')}}"></script>
+<script src="{{url_for('static', filename='pagination.js')}}"></script>
+
+</body>
+
+</html>
