@@ -11,3 +11,6 @@ i created with python and flask, and eventually open them also on Binance, that 
 for all modification of SL and TP. 
 
 But like i said the copy on Binance of real order was not tested.
+
+The communication from binance to python is based on files, at each tic on MT the files update itself
+and python reads them constantly updating the orders and the other informations.
